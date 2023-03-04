@@ -10,6 +10,8 @@ from .serializers import OFSerializer
 from .forms import ImageUploadForm
 from .models import OFundus
 
+import requests
+
 import torch.nn as nn
 import base64
 import torch
@@ -83,3 +85,8 @@ class OFViewSet(viewsets.ModelViewSet):
             response_body = OFSerializer(new_ofundus).data
 
         return Response(data = response_body)
+
+def home(request):
+    response = requests.get('http://127.0.0.1:8000/ofundus')
+    data = response.json()
+    return render(request, 'home.html', {'data':data})
