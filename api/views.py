@@ -67,6 +67,8 @@ class OFViewSet(viewsets.ModelViewSet):
     def create(self, request, *args,  **kwargs):
         fundus_data = request.data
         image = fundus_data['image'].file
+        ref = False
+        mac_ed = False
                 
         try:
             predicted_index, predicted_label = get_prediction(image)
@@ -76,7 +78,7 @@ class OFViewSet(viewsets.ModelViewSet):
             if predicted_index >= 3:
                 ref = True
             
-            if predicted_index > 0:
+            if predicted_index > 1:
                 mac_ed = True
             
             new_ofundus = OFundus.objects.create(
