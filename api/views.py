@@ -95,6 +95,15 @@ class OFViewSet(viewsets.ModelViewSet):
         return Response(data = response_body)
 
 def home(request):
-    response = OFundus.objects.all()
-    data = response
-    return render(request, 'api/home.html', {'data': data})
+    data = OFundus.objects.all()
+    context = {
+        'data': data,
+        'title': "Home"
+    }
+    return render(request, 'api/home.html', context)
+
+def about(request):
+    context = {
+        'title': "Home"
+    }
+    return render(request, 'api/about.html', context)
