@@ -95,6 +95,6 @@ class OFViewSet(viewsets.ModelViewSet):
         return Response(data = response_body)
 
 def home(request):
-    response = requests.get('http://0.0.0.0:8000/ofundus')
+    response = requests.get('http://0.0.0.0:8000/ofundus/')
     data = response.json()
-    return render(request, 'home.html', {'data': data})
+    return render(request, 'api/home.html', {'data': data})
