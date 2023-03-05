@@ -51,9 +51,11 @@ def get_prediction(img_bytes):
     img_tensor = preprocess_image(img_bytes)
     outputs = model_ft.forward(img_tensor)
     _, y_hat = outputs.max(1)
-    label = class_mappings[y_hat.item()]
-    print(label)
-    return label
+
+    index = y_hat.item()
+    label = class_mappings[index]
+    
+    return index, label
 
 
 class OFViewSet(viewsets.ModelViewSet):
@@ -67,12 +69,20 @@ class OFViewSet(viewsets.ModelViewSet):
         image = fundus_data['image'].file
                 
         try:
-            predicted_label = get_prediction(image)
+            predicted_index, predicted_label = get_prediction(image)
         except RuntimeError as re:
             print(re)
         else:
+            if predicted_index >= 3:
+                ref = True
+            
+            if predicted_index > 0:
+                mac_ed = True
+            
             new_ofundus = OFundus.objects.create(
                 image = fundus_data['image'],
+                refer_to_hospital = ref,
+                check_for_macular_edema = mac_ed,
                 class_name = predicted_label,
             )
             new_ofundus.save()
