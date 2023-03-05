@@ -10,6 +10,7 @@ from .serializers import OFSerializer
 from .models import OFundus
 
 import torch.nn as nn
+import requests
 import torch
 import os
 
@@ -92,3 +93,8 @@ class OFViewSet(viewsets.ModelViewSet):
             response_body = OFSerializer(new_ofundus).data
 
         return Response(data = response_body)
+
+def home(request):
+    response = requests.get('http://0.0.0.0:8000/ofundus')
+    data = response.json()
+    return render(request, 'home.html', {'data': data})
