@@ -3,3 +3,4 @@
 *.pt
 
 media
+api/migrations

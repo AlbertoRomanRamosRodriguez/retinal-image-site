@@ -64,7 +64,7 @@ class OFViewSet(viewsets.ModelViewSet):
     serializer_class =  OFSerializer
 
     response_body = {'status':'Something went wrong'}
-
+    
     def create(self, request, *args,  **kwargs):
         fundus_data = request.data
         image = fundus_data['image'].file
@@ -95,6 +95,6 @@ class OFViewSet(viewsets.ModelViewSet):
         return Response(data = response_body)
 
 def home(request):
-    response = requests.get('http://0.0.0.0:8000/ofundus/')
-    data = response.json()
+    response = OFundus.objects.all()
+    data = response
     return render(request, 'api/home.html', {'data': data})
