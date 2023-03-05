@@ -7,16 +7,11 @@ from django.shortcuts import render
 from rest_framework import viewsets
 from rest_framework.response import Response
 from .serializers import OFSerializer
-from .forms import ImageUploadForm
 from .models import OFundus
 
-import requests
-
 import torch.nn as nn
-import base64
 import torch
 import os
-import io
 
 class_mappings = {
     0:'No DR', 
