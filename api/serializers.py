@@ -8,4 +8,4 @@ class OFSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = models.OFundus
-        fields = ('id', 'image', 'class_name')
+        fields = ('image', 'class_name')
