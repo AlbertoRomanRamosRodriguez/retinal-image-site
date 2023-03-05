@@ -27,7 +27,7 @@ class_mappings = {
 }
 
 FILENAME = 'MobileNetV3_Grading_23_Feb_23_17_04'
-PATH = os.path.sep.join(['api', 'models_pt', f'{FILENAME}.pt'])
+PATH = os.path.sep.join(['models_pt', f'{FILENAME}.pt'])
 
 model_ft  = models.mobilenet_v3_small(weights=models.MobileNet_V3_Small_Weights.IMAGENET1K_V1)
 num_ftrs = model_ft.classifier[-1].in_features
@@ -85,8 +85,3 @@ class OFViewSet(viewsets.ModelViewSet):
             response_body = OFSerializer(new_ofundus).data
 
         return Response(data = response_body)
-
-def home(request):
-    response = requests.get('http://127.0.0.1:8000/ofundus')
-    data = response.json()
-    return render(request, 'home.html', {'data':data})
